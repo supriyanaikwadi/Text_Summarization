@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dashboard - Text Summary Creator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='Style.css') }}" />
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+        }
+        .block {
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            background-color: #fff;
+        }
+        textarea {
+            width: 100%;
+            height: 150px;
+            font-size: 16px;
+            padding: 10px;
+            border-radius: 5px;
+            box-sizing: border-box;
+            resize: vertical;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #2575fc;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #1a5edb;
+        }
+        #summary {
+            white-space: pre-wrap;
+            font-size: 16px;
+            min-height: 150px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome, {{ name }}</h1>
+        <p>You are logged in.</p>
+        <div class="block">
+            <h2>Enter text to summarize:</h2>
+            <textarea id="inputText" placeholder="Enter your text here..."></textarea>
+            <br/><br/>
+            <button id="summarizeBtn">Summarize</button>
+        </div>
+
+        <div class="block">
+            <h2>Summary:</h2>
+            <div id="summary">Your summary will appear here.</div>
+        </div>
+
+        <p><a href="{{ url_for('logout') }}">Logout</a></p>
+    </div>
+
+    <script>
+        document.getElementById('summarizeBtn').addEventListener('click', function () {
+            const text = document.getElementById('inputText').value.trim();
+            if (!text) {
+                alert('Please enter some text to summarize.');
+                return;
+            }
+
+            fetch('/summarize', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ text: text }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.summary) {
+                    document.getElementById('summary').innerText = data.summary;
+                } else {
+                    document.getElementById('summary').innerText = 'Error: Could not generate summary.';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('summary').innerText = 'Error: Could not generate summary.';
+            });
+        });
+    </script>
+</body>
+</html>
