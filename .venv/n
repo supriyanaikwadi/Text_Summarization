@@ -1,0 +1,5 @@
+home = C:\Users\supri_vsch\AppData\Local\Programs\Python\Python313
+include-system-site-packages = false
+version = 3.13.6
+executable = C:\Users\supri_vsch\AppData\Local\Programs\Python\Python313\python.exe
+command = C:\Users\supri_vsch\AppData\Local\Programs\Python\Python313\python.exe -m venv C:\Users\supri_vsch\Desktop\Project\TextSummarization-main\.venv
