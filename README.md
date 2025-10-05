@@ -24,8 +24,7 @@ Text_Summarization/
 ├── create_db.py         # Script to create and manage local memory/database
 ├── static/              # (Optional) CSS, JS, or image files for Flask templates
 ├── templates/           # HTML templates for Flask web interface
-├── .gitignore
-└── README.md            # Project documentation
+└── .gitignore           
 ```
 
 > Note: The `.venv/` folder is your local virtual environment and should not be included in version control.
